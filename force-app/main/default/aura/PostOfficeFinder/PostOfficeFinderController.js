@@ -12,6 +12,10 @@
                 var items = response.getReturnValue();
                 component.set('v.size', items.length);
             }
+            else if(response.getState()=='ERROR'){
+                component.set('v.size',0);
+                component.set('v.postOfficeData', []);
+            }
         });
         
         $A.enqueueAction(action);
