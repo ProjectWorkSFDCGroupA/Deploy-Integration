@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="ExchangeRateController">
+    <aura:attribute name="options" type="List" />
+    <aura:attribute name="selectedValue" type="String" default="Red"/>
+    <aura:attribute name="isOpenConverter" type="Boolean" default="false"/>
+    <aura:attribute name="currency" type="CurrencyType"/>
+    <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+    <lightning:card title="Convert from USD" iconName="custom:custom58">
+        <div class="slds-p-around_medium slds-m-around_medium">
+            <lightning:select name="selectOptions" label="Select a Currency:" aura:id="selectOptions" onchange="{!c.getConvertedValue}" value="{!v.selectedValue}" >
+                <aura:iteration items="{!v.options}" var="item">
+                    <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+    </lightning:card>
+    <aura:if isTrue="{!v.isOpenConverter}">
+        <lightning:card title="Converted Value" iconName="custom:custom42">
+            <div class="slds-p-around_medium slds-m-around_medium">
+                <p><strong>Date:&nbsp;&nbsp;</strong>{!v.currency.cDate}</p>
+                <p><strong>1 USD =&nbsp;&nbsp;</strong>{!v.currency.rate}&nbsp;{!v.selectedValue}</p>
+            </div>
+        </lightning:card>
+    </aura:if>
+</aura:component>
